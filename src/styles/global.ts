@@ -8,6 +8,14 @@ export default createGlobalStyle`
     box-sizing: 0;
   }
 
+  html {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+
+    background-color: #eceff4;
+    color: #434c5e;
+  }
+
   button {
     cursor: pointer;
   }

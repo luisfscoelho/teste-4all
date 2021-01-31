@@ -1,10 +1,63 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+
+import { Contaier, Products } from './styles';
+import Nav from '../../components/Nav';
+
+import { getCategories, getProductsByCategoryId } from '../../services/api';
+
+import ICategory from '../../interfaces/ICategory';
+import IProduct from '../../interfaces/IProduct';
 
 function Home() {
+  const [categories, setCategories] = useState<ICategory[]>([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
+
+  const handleCategoryChange = useCallback(async (categoryId: number) => {
+    setProducts(await getProductsByCategoryId(categoryId));
+  }, []);
+
+  useEffect(() => {
+    const getData = async () => {
+      const [categoriesData, productsData] = await Promise.all([
+        getCategories(),
+        getProductsByCategoryId(0),
+      ]);
+
+      setCategories(categoriesData);
+      setProducts(productsData);
+    };
+
+    getData();
+  }, []);
+
   return (
-    <main>
-      <h1>Home</h1>
-    </main>
+    <>
+      <Nav />
+      <Contaier>
+        <select
+          onChange={({ target }) => handleCategoryChange(Number(target.value))}
+        >
+          {categories.map(c => (
+            <option key={c.id} value={c.id}>
+              {c.name}
+            </option>
+          ))}
+        </select>
+
+        <Products>
+          {products.map(p => (
+            <div key={p.name}>
+              <img
+                src={`images/products/product-${p.id}.jpg`}
+                alt={p.description}
+              />
+              <p>{p.name}</p>
+              <button type="button">Adicionar ao carrinho</button>
+            </div>
+          ))}
+        </Products>
+      </Contaier>
+    </>
   );
 }
 
