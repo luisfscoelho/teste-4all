@@ -1,13 +1,16 @@
-import React, { useMemo } from 'react';
-import { FaMinus, FaPlus, FaShoppingBag } from 'react-icons/fa';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { FaMinus, FaPlus, FaShoppingBag, FaCheckCircle } from 'react-icons/fa';
 
 import { usecart } from '../../hooks/cart';
 
 import Nav from '../../components/Nav';
-import { Contaier, Cart } from './styles';
+import { Contaier, Cart, Modal } from './styles';
 
 function Checkout() {
-  const { cart, increaseProduct, decreaseProsuct } = usecart();
+  const { cart, increaseProduct, decreaseProsuct, clearCart } = usecart();
+  const history = useHistory();
+  const [showModal, setShowModal] = useState(false);
   const total = useMemo(
     () =>
       cart
@@ -16,9 +19,27 @@ function Checkout() {
     [cart],
   );
 
+  const checkout = useCallback(() => {
+    setShowModal(true);
+    clearCart();
+  }, [clearCart]);
+
   return (
     <>
       <Nav onCheckout />
+
+      {showModal && (
+        <Modal>
+          <div>
+            <FaCheckCircle size={42} />
+            <p>Pedido Realizado com sucesso!</p>
+            <button type="button" onClick={() => history.push('/')}>
+              Fechar
+            </button>
+          </div>
+        </Modal>
+      )}
+
       <Contaier>
         <h1>Finalizar pedido</h1>
 
@@ -57,7 +78,9 @@ function Checkout() {
           </div>
         </Cart>
 
-        <button type="button">Finalizar Compra</button>
+        <button type="button" onClick={checkout}>
+          Finalizar Compra
+        </button>
       </Contaier>
     </>
   );

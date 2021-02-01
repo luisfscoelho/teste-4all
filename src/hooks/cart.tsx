@@ -18,6 +18,7 @@ interface CartContextData {
   removeFromCart(productId: number): void;
   increaseProduct(productId: number): void;
   decreaseProsuct(productId: number): void;
+  clearCart(): void;
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData);
@@ -39,6 +40,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   function removeFromCart(productId: number) {
     setCart(data => data.filter(item => item.id !== productId));
+  }
+
+  function clearCart() {
+    setCart([]);
   }
 
   function increaseProduct(productId: number) {
@@ -82,6 +87,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         removeFromCart,
         increaseProduct,
         decreaseProsuct,
+        clearCart,
       }}
     >
       {children}
