@@ -1,30 +1,20 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FaMinus, FaPlus, FaShoppingBag } from 'react-icons/fa';
+
+import { usecart } from '../../hooks/cart';
 
 import Nav from '../../components/Nav';
 import { Contaier, Cart } from './styles';
 
 function Checkout() {
-  const cart = [
-    {
-      id: 1,
-      idCategory: 0,
-      name: 'Del Valle Uva',
-      description: 'Del Valle sabor uva 290ml',
-      price: 2.9,
-      image: 'path',
-      quantity: 1,
-    },
-    {
-      id: 2,
-      idCategory: 0,
-      name: 'Del Valle Maracuja',
-      description: 'Del Valle sabor Maracuja 290ml',
-      price: 2.9,
-      image: 'path',
-      quantity: 1,
-    },
-  ];
+  const { cart, increaseProduct, decreaseProsuct } = usecart();
+  const total = useMemo(
+    () =>
+      cart
+        .map(item => item.price * item.quantity)
+        .reduce((acc, value) => acc + value, 0),
+    [cart],
+  );
 
   return (
     <>
@@ -48,22 +38,22 @@ function Checkout() {
           {cart.map(c => (
             <div key={c.id}>
               <div>
-                <button type="button">
+                <button type="button" onClick={() => decreaseProsuct(c.id)}>
                   <FaMinus size={12} />
                 </button>
-                <p>1</p>
-                <button type="button">
+                <p>{c.quantity}</p>
+                <button type="button" onClick={() => increaseProduct(c.id)}>
                   <FaPlus size={12} />
                 </button>
               </div>
               <span>{c.name}</span>
-              <span>{c.price}</span>
+              <span>{c.price * c.quantity}</span>
             </div>
           ))}
 
           <div>
             <span>Total</span>
-            <span>5.00</span>
+            <span>{total}</span>
           </div>
         </Cart>
 

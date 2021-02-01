@@ -11,4 +11,8 @@ export const Contaier = styled.nav`
   padding: 1em;
   background-color: #434c5e;
   color: #eceff4;
+
+  a {
+    color: #eceff4;
+  }
 `;

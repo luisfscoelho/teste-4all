@@ -265,7 +265,7 @@ const Products = [
   },
   {
     id: 33,
-    idCategory: 0,
+    idCategory: 3,
     name: 'Ice Latte',
     description: 'Ice Latte 200ml',
     price: 8.75,
@@ -273,7 +273,7 @@ const Products = [
   },
   {
     id: 34,
-    idCategory: 0,
+    idCategory: 3,
     name: 'Ice Coffee',
     description: 'Ice Coffee 200ml',
     price: 8.5,
