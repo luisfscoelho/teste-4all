@@ -13,6 +13,27 @@ export const Contaier = styled.nav`
   color: #eceff4;
 
   a {
+    display: flex;
+    flex-direction: row;
+
     color: #eceff4;
+    text-decoration: none;
+
+    div {
+      position: relative;
+      right: 6px;
+      top: -6px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 12px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+
+      background-color: #bf616a;
+    }
   }
 `;

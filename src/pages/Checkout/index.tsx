@@ -18,7 +18,7 @@ function Checkout() {
 
   return (
     <>
-      <Nav />
+      <Nav onCheckout />
       <Contaier>
         <h1>Finalizar pedido</h1>
 

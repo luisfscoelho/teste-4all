@@ -34,7 +34,7 @@ function Home() {
 
   return (
     <>
-      <Nav />
+      <Nav onCheckout={false} />
       <Contaier>
         <select
           onChange={({ target }) => handleCategoryChange(Number(target.value))}
